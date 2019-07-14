@@ -5,9 +5,10 @@ import dash_core_components as dcc
 import dash_html_components as html
 import plotly.graph_objs as go
 from dash.dependencies import Input, Output
+from utils.stat import mean_std_plot
 
 df= pd.read_csv('train.csv')
-print(df.head())
+#print(df.head())
 N=299
 start_i=3
 end_i=start_i+N
@@ -17,12 +18,14 @@ f1=df['target']==1.0
 data0=df[f0]
 data1=df[f1]
 
+
 data_mat0=data0.iloc[:,start_i:end_i].to_numpy()
 data_mat1=data1.iloc[:,start_i:end_i].to_numpy()
 
 target=df['target'].to_numpy()
 print(data_mat0.shape)
 print(data_mat1.shape)
+
 
 
 
@@ -59,7 +62,8 @@ app.layout = html.Div(children=[
             'layout': {
                 'title': 'Scatter Data Visualization'
                 }
-        }),
+        }
+    ),
 
     dcc.Graph(   
         id='hist-graph',    
@@ -70,12 +74,17 @@ app.layout = html.Div(children=[
             }
 
         }
+    ),
+
+    dcc.Graph(   
+        id='stat0-graph',    
+        figure=mean_std_plot(data_mat0,data_mat1)
     )
+
 ])
 
 
-@app.callback([Output('scatter-graph', 'figure'),Output('hist-graph', 'figure')],[Input(component_id='column1', component_property='value'),Input(component_id='column2', component_property='value')]
-)
+@app.callback([Output('scatter-graph', 'figure'),Output('hist-graph', 'figure')],[Input(component_id='column1', component_property='value'),Input(component_id='column2', component_property='value')])
 def update_output_div(v0,v1):
     
     trace0 = go.Scatter(
