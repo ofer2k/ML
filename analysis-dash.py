@@ -8,7 +8,7 @@ import dash_html_components as html
 import plotly.graph_objs as go
 from dash.dependencies import Input, Output
 
-from utils.stat import mean_std_plot
+
 from utils.data import data_frame_stat
 
 config = configparser.ConfigParser()
@@ -67,8 +67,13 @@ app.layout = html.Div(children=[
     ),
 
     dcc.Graph(   
+        id='violin-graph',    
+        figure=df.violin_plot()
+    ),    
+
+    dcc.Graph(   
         id='stat0-graph',    
-        figure=mean_std_plot(data_mat0,data_mat1)
+        figure=df.mean_std_plot()
     )
 
 ])
