@@ -1,32 +1,22 @@
 import numpy as np 
 import pandas as pd 
+import configparser
+
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import plotly.graph_objs as go
 from dash.dependencies import Input, Output
+
 from utils.stat import mean_std_plot
+from utils.data import data_frame_stat
 
-df= pd.read_csv('train.csv')
-#print(df.head())
-N=299
-start_i=3
-end_i=start_i+N
+config = configparser.ConfigParser()
+config.read('config.ini')
 
-f0=df['target']==0.0
-f1=df['target']==1.0
-data0=df[f0]
-data1=df[f1]
-
-
-data_mat0=data0.iloc[:,start_i:end_i].to_numpy()
-data_mat1=data1.iloc[:,start_i:end_i].to_numpy()
-
-target=df['target'].to_numpy()
-print(data_mat0.shape)
-print(data_mat1.shape)
-
-
+df=data_frame_stat(config)
+data_mat0,data_mat1,target = df.target_split()
+N=data_mat0.shape[1]
 
 
 
@@ -36,7 +26,7 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 app.layout = html.Div(children=[
-    html.H1(children='Training data exploration'),
+    html.H1(children='The Data Exploration Tool'),
 
     html.Div(children='''
          A data web application exploration tool.
