@@ -8,9 +8,9 @@
   display: grid;
   grid-template-areas:
     'header header header '
-    'menu  main main'
-    'menu  main main'
-    'footer  footer footer';
+    'menu menu main'
+    'menu menu main'
+    'footer footer footer';
 
   grid-gap: 5px;
   background-color: rgb(56, 40, 36);
