@@ -25,56 +25,62 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
-app.layout = html.Div(children=[
-    html.H1(children='The Data Exploration Tool'),
+app.layout = html.Div(className='grid-container',children=[
+    
+    html.Div(className='item1',children=[
+        html.H1(children='The Data Exploration Tool')
+        ,html.H2(children='A data web application exploration tool.')
+    ]),
 
-    html.Div(children='''
-         A data web application exploration tool.
-    '''),
+    html.Div(className='item2',children=[
+        dcc.Dropdown(
+            id='column1',
+            options=[ {'label': str(n), 'value': n} for n in range(N) ],
+            value=0,
+            multi=False
+        ),
+        dcc.Dropdown(
+            id='column2',
+            options=[ {'label': str(n), 'value': n} for n in range(N) ],
+            value=1,
+            multi=False
+        )
+    ]),
 
-    dcc.Dropdown(
-        id='column1',
-        options=[ {'label': str(n), 'value': n} for n in range(N) ],
-        value=0,
-        multi=False
-    ),
-    dcc.Dropdown(
-        id='column2',
-        options=[ {'label': str(n), 'value': n} for n in range(N) ],
-        value=1,
-        multi=False
-    ),
-
-    dcc.Graph(
-        id='scatter-graph',
-        figure={
-            'data': [],
-            'layout': {
-                'title': 'Scatter Data Visualization'
-                }
-        }
-    ),
-
-    dcc.Graph(   
-        id='hist-graph',    
-        figure={
-            'data': [],
-            'layout': {
-                'title': 'Histogram Data Visualization'
+    html.Div(className='item3',children=[
+        dcc.Graph(
+            id='scatter-graph',
+            figure={
+                'data': [],
+                'layout': {
+                    'title': 'Scatter Data Visualization'
+                    }
             }
+        ),
 
-        }
-    ),
+        dcc.Graph(   
+            id='hist-graph',    
+            figure={
+                'data': [],
+                'layout': {
+                    'title': 'Histogram Data Visualization'
+                }
 
+            }
+        ),
     dcc.Graph(   
-        id='violin-graph',    
-        figure=df.violin_plot()
-    ),    
+            id='violin-graph',    
+            figure=df.violin_plot()
+        )    
 
-    dcc.Graph(   
-        id='stat0-graph',    
-        figure=df.mean_std_plot()
-    )
+    ]),
+
+    html.Div(className='item5',children=[
+        dcc.Graph(   
+            id='stat0-graph',    
+            figure=df.mean_std_plot()
+        )
+    ])
 
 ])
 
