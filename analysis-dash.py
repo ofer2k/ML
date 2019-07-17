@@ -69,8 +69,7 @@ app.layout = html.Div(className='grid-container',children=[
             }
         ),
     dcc.Graph(   
-            id='violin-graph',    
-            figure=df.violin_plot()
+            id='violin-graph'   
         )    
 
     ]),
@@ -83,6 +82,11 @@ app.layout = html.Div(className='grid-container',children=[
     ])
 
 ])
+
+
+@app.callback([Output('violin-graph', 'figure')],[Input(component_id='column1', component_property='value'),Input(component_id='column2', component_property='value')])
+def update_violin_div(v0,v1):
+    return [df.violin_plot(v0,v1)]
 
 
 @app.callback([Output('scatter-graph', 'figure'),Output('hist-graph', 'figure')],[Input(component_id='column1', component_property='value'),Input(component_id='column2', component_property='value')])

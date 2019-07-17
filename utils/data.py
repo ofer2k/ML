@@ -60,16 +60,16 @@ class data_frame_stat():
         fig = go.Figure(data=data, layout=layout)    
         return fig
 
-    def violin_plot(self):
+    def violin_plot(self,v0,v1):
         data = []
         cc=0
         for d in [self.data_mat0,self.data_mat1]:
-            for i in [0,1]:
+            for i in [v0,v1]:
                 trace = {
                         "type": 'violin',
-                        "x": str(cc),
+                        "x": cc,
                         "y": d[:,i],
-                        "name": str(cc),
+                        "name": str(i),
                         "box": {
                             "visible": True
                         },
