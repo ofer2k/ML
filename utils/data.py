@@ -1,7 +1,7 @@
 import numpy as np 
 import pandas as pd 
 
-import plotly.plotly as py
+
 import plotly.graph_objs as go
 
 from utils.stat import mean_std
