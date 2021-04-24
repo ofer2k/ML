@@ -19,8 +19,6 @@ data_mat0,data_mat1,target = df.target_split()
 N=data_mat0.shape[1]
 
 
-
-
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
